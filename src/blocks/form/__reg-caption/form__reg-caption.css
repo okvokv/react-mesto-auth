@@ -1,4 +1,6 @@
 .form__reg-caption {
+	display: flex;
+	flex-direction: row;
 	margin: 0 auto;
 	margin-top: 15px;
 	font-style: normal;
