@@ -4,7 +4,7 @@ import avatar from '../images/avatar.png';
 import auth from '../utils/auth.js';
 import api from '../utils/api.js';
 import Header from './Header.js';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Register from './Register.js';
 import Login from './Login.js';
 import ProtectedRoute from './ProtectedRoute.js';
@@ -24,10 +24,10 @@ function App() {
   //объявление данных пользователя в глобальной области
   const [currentUserData, setCurrentUserData] = useState({ name: 'Жак-Ив Кусто', about: 'Исследователь океана', avatar: avatar });
 
-  //аутентификация пользователя при открытии страницы
-  // useEffect(() => {
-  // handleTokenCheck();
-  // }, []);
+  //аутентификация пользователя при открытии страницы, сверка жетона
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
 
   //объявление данных массива карточек в глобальной области
   const [cardsData, setCardsData] = useState([]);
@@ -60,21 +60,48 @@ function App() {
   const [headerBtnText, setHeaderBtnText] = useState('Регистрация')
   //задание текста кнопки сохранения в глобальной области
   const [submitBtnText, setSubmitBtnText] = useState('Войти');
-  //функция для изменения текста кнопки при загрузке
+  //функция для изменения текста кнопки при отправке данных
   function changeSubmitBtnText(text) {
     setSubmitBtnText(text);
   };
 
   //----------------------------------------------------------------------------
+  //обьявление значения почты и пароля пользователя в глобальной области
+  const [userEmail, setUserEmail] = useState('');
+  const [userPwd, setUserPwd] = useState('')
+
   //объявление состояния индикатора входа в глобальной области
-  const [loggedIn, setLoggedIn] = useState(false);                    //----------//
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  //задание переменной навигации и извлечения теущего адреса
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  //функция отправки жетона для аутентификации
+  function handleTokenCheck() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth.checkToken(token)
+        .then(data => {
+          console.log(data.email)                      
+          setUserEmail(data.email);                    
+          setLoggedIn(true);
+          navigate('/');
+        })
+        .catch(err => {
+          setLoggedIn(false);
+          console.log('Внутренняя ошибка: ', err);
+        })
+    };
+  };
 
   //функция отправки данных для входа и обработки ответа
   function handleLogIn(email, password) {
     auth.logIn(email, password)
-      .then(token => {
-        setLoggedIn(true);
-        localStorage.setItem('jwt', token);
+      .then(data => {
+        localStorage.setItem('jwt', data.token);
+        //запуск проверки токена, чтобы получить название почты
+        handleTokenCheck();
         //почистить форму
       })
       .catch(err => {
@@ -88,16 +115,16 @@ function App() {
   const [infoTooltipOpened, setInfoTooltipOpened] = useState(false);
   //объявление состояния регистрации в глобальной области
   const [regSuccess, setRegSuccess] = useState(false);
-  //обьявление значения почты пользователя в глобальной области
-  const [userEmail, setUserEmail] = useState('***@***.***');
 
   //функция отправки данных на регистрацию и обработки ответа
   function handleRegistration(email, password) {
     auth.registrate(email, password)
-      .then(data => {
+      .then(() => {
         setRegSuccess(true);
         setInfoTooltipOpened(true);
-        setUserEmail(data.email);
+        setUserEmail(email);
+        setUserPwd(password);
+        navigate('/sign-in')
         //почистить форму
       })
       .catch(err => {
@@ -107,39 +134,21 @@ function App() {
       })
   };
 
-  //функция отправки жетона для аутентификации
-  function handleTokenCheck() {
-    const token = localStorage.getItem('jwt');
-    auth.checkToken(token)
-      .then(data => {
-        setUserEmail(data.email);
-        setLoggedIn(true);
-      })
-      .catch(err => {
-        setLoggedIn(false);
-        console.log('Внутренняя ошибка: ', err);
-      })
-  };
-
-  //задание переменной навигации
-  //const navigate = useNavigate();
   //функция замены страницы
   function handleTogglePage() {
-    //как программно узнать на каком линке мы находимся сейчас ? 
-    //линк ? {   
-    //navigate('/sign-up')
-    //setHeaderBtnText('Вход')
-    //}
-    //:
-    //{
-    //navigate('/sign-in')
-    //setHeaderBtnText('Регистрация')
-    //}
+    if (location.pathname === '/sign-in') {
+      navigate('/sign-up')
+      setHeaderBtnText('Вход')
+      return;
+    }
+    navigate('/sign-in')
+    setHeaderBtnText('Регистрация')
   };
 
   //функция обработки выхода с сайта
   function handleLogOut() {
     localStorage.removeItem('jwt');
+    setSubmitBtnText('Войти');
     setLoggedIn(false);
   };
 
@@ -267,7 +276,7 @@ function App() {
           onLogOut={handleLogOut}
         />
         <Routes>
-          <Route path="/" element={
+          <Route path='/' element={
             <ProtectedRoute
               //Основная секция ======================================//
               element={Main}
@@ -284,6 +293,7 @@ function App() {
           <Route path='/sign-up' element={
             <Register
               btnText='Зарегистрироваться'
+              onTogglePage={handleTogglePage}
               onRegistration={handleRegistration}
             />}
           />
@@ -291,9 +301,13 @@ function App() {
             <Login
               btnText={submitBtnText}
               changeBtnText={changeSubmitBtnText}
-              userEmail={userEmail}
+              email={userEmail}
+              password={userPwd}
               onLogIn={handleLogIn}
             />}
+          />
+          <Route path="*" element={
+            <Navigate to='/' replace />}
           />
         </Routes>
 

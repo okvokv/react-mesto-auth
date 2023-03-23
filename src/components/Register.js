@@ -11,12 +11,17 @@ function Register(props) {
   //функция изменения почты
   function handleChangeEmail(event) {
     setEmail(event.target.value);
-  }
+  };
 
   //функция изменения пароля
   function handleChangePassword(event) {
     setPassword(event.target.value);
-  }
+  };
+
+  //промежуточная функция переключения страницы
+  function handleClick() {
+    props.onTogglePage()
+  };
 
   //промежуточная функция отправки данных
   function handleSubmit(event) {
@@ -52,9 +57,15 @@ function Register(props) {
             required
           />
           <span className="form__error-message" id="pwd-error"></span>
-          <button className="form__submit-button form__submit-button_theme-dark" type="submit" aria-label="кнопка Зарегистрироваться">{props.btnText}
+          <button
+            className="form__submit-button form__submit-button_theme-dark"
+            type="submit"
+            aria-label="кнопка Зарегистрироваться">{props.btnText}
           </button>
-          <div className="form__reg-caption"><p>Уже зарегистированы ? <a className="form__reg-link" href="/sign-in">Войти</a></p></div>   {/*Link to*/}
+          <div className="form__reg-caption">
+            <p>Уже зарегистированы ?</p>
+            <p className="form__reg-link" onClick={handleClick}>&nbsp; Войти</p>
+          </div>
         </form>
       </section>
     </>

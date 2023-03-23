@@ -18,7 +18,7 @@ function InfoTooltip(props) {
 
 				<form className="form form_type_reginfo" name="reginfoForm">
 					<img
-						className="form__icon"
+						className="form__reg-icon"
 						src={props.success ? successIcon : failureIcon}
 						alt={props.success ? 'Галочка' : 'Крестик'}
 					/>

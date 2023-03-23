@@ -4,8 +4,8 @@ import { useState } from 'react';
 function Login(props) {
 
   //объявление данных входа в глобальной области
-  const [email, setEmail] = useState(props.userEmail);
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(props.email);
+  const [password, setPassword] = useState(props.password);
 
   //------------------------------------------------------------------------
   //функция изменения почты
@@ -54,7 +54,11 @@ function Login(props) {
             required
           />
           <span className="form__error-message" id="pwd-error"></span>
-          <button className="form__submit-button form__submit-button_theme-dark" type="submit" aria-label="кнопка Войти">{props.btnText}</button>
+          <button
+            className="form__submit-button form__submit-button_theme-dark"
+            type="submit"
+            aria-label="кнопка Войти">{props.btnText}
+          </button>
         </form>
       </section>
     </>
