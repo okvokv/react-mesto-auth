@@ -19,7 +19,6 @@ import InfoTooltip from './InfoTooltip.js';
 
 //гибридный элемент всего проекта
 function App() {
-
   //---------------------------------------------------------------------------------
   //объявление данных пользователя в глобальной области
   const [currentUserData, setCurrentUserData] = useState({ name: 'Жак-Ив Кусто', about: 'Исследователь океана', avatar: avatar });
