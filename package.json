@@ -1,6 +1,6 @@
 {
-  "homepage": "https://okvokv.github.io/mesto-react-auth",
-  "name": "mesto-react-auth1",
+  "homepage": "https://okvokv.github.io/react-mesto-auth",
+  "name": "react-mesto-auth",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
