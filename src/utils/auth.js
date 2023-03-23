@@ -1,5 +1,5 @@
 //параметры подключения: 
-const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-59';
+const baseUrl = 'https://auth.nomoreparties.co';
 const headers = { 'Content-Type': 'application/json' };
 
 class Auth {
@@ -50,8 +50,8 @@ class Auth {
 		return this._request('users/me', {
 			method: 'GET',
 			headers: {
-				Authorization: `Bearer ${_token}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${_token}`
 			}
 		})
 	};
