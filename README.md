@@ -19,4 +19,4 @@
 
 * Имеется модуль обмена данными с сервером.
 
-* https://okvokv.github.io/mesto-react-auth
+* https://okvokv.github.io/react-mesto-auth
