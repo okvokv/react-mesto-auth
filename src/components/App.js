@@ -82,8 +82,7 @@ function App() {
     if (token) {
       auth.checkToken(token)
         .then(data => {
-          console.log(data.email)                      
-          setUserEmail(data.email);                    
+          setUserEmail(data.data.email);                    
           setLoggedIn(true);
           navigate('/');
         })

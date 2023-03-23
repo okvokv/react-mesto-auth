@@ -17,7 +17,7 @@ function ProfileEditPopup(props) {
 	useEffect(() => {
 		setName(currentUserData.name);
 		setDescription(currentUserData.about);
-	}, [currentUserData]);
+	}, [currentUserData, props.opened]);
 
 	//------------------------------------------------------------------------
 	//функция изменения имени

@@ -15,16 +15,13 @@ function InfoTooltip(props) {
 					aria-label="кнопка Закрыть"
 					onClick={props.onClose}>
 				</button>
+				<img
+					className="form__reg-icon"
+					src={props.success ? successIcon : failureIcon}
+					alt={props.success ? 'Галочка' : 'Крестик'}
+				/>
 
-				<form className="form form_type_reginfo" name="reginfoForm">
-					<img
-						className="form__reg-icon"
-						src={props.success ? successIcon : failureIcon}
-						alt={props.success ? 'Галочка' : 'Крестик'}
-					/>
-
-					<p className="form__reg-message">{props.success ? 'Вы успешно зарегистрировались !' : 'Что-то пошло не так ! Пропробуйте ещё раз.'}</p>
-				</form>
+				<p className="form__reg-message">{props.success ? 'Вы успешно зарегистрировались !' : 'Что-то пошло не так ! Пропробуйте ещё раз.'}</p>
 
 			</div>
 		</div>

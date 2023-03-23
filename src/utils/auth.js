@@ -1,24 +1,12 @@
+import BaseApi from './BaseApi.js';
 //параметры подключения: 
 const baseUrl = 'https://auth.nomoreparties.co';
 const headers = { 'Content-Type': 'application/json' };
-
-class Auth {
+class Auth extends BaseApi {
 	constructor(baseUrl, headers) {
+		super(baseUrl)
 		this._baseUrl = baseUrl;
 		this._headers = headers;
-	};
-
-	//общая часть запроса и его обработки
-	_request(_endUrl, _options) {
-		return fetch(`${this._baseUrl}/${_endUrl}`, _options)
-			.then(res => {
-				if (res.ok) {
-					//если запрос выполнен
-					return res.json();
-				}
-				//если сервер вернул ошибку, отклонить промис
-				return Promise.reject(`Ошибка: ${res.status}`)
-			})
 	};
 
 	//метод регистрации пользователя
