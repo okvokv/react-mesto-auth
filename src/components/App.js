@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import avatar from '../images/avatar.png';
 import auth from '../utils/auth.js';
@@ -71,6 +71,7 @@ function App() {
     setClickedImage({});
     setInfoTooltipOpened(false);
     setPopupOpened(false);
+    
   };
 
   //-------------------------------------------------------------------------------
