@@ -57,8 +57,10 @@ function App() {
         closeAllPopups();
       }
     };
-    if (popupOpened) document.addEventListener('keydown', closeByEscape);
-    return function () { document.removeEventListener('keydown', closeByEscape) };
+    if (popupOpened) {
+      document.addEventListener('keydown', closeByEscape)
+      return function () { document.removeEventListener('keydown', closeByEscape) };
+    }
   }, [popupOpened]);
 
   //функция закрытия попапов
@@ -71,7 +73,7 @@ function App() {
     setClickedImage({});
     setInfoTooltipOpened(false);
     setPopupOpened(false);
-    
+
   };
 
   //-------------------------------------------------------------------------------
