@@ -269,7 +269,7 @@ function App() {
     //запрос в api и удаление из массива всех карточек с cardId 
     api.deleteCard(cardId)
       .then(() => {
-        setCardsData(cardsData.filter(cardData => cardData._id !== cardId));
+        setCardsData(cardsData => cardsData.filter(cardData => cardData._id !== cardId));
         closeAllPopups();
       })
       .catch(err => {

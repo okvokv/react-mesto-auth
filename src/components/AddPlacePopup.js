@@ -29,7 +29,7 @@ function CardAddPopup(props) {
 	useEffect(() => {
 		setCardName('');
 		setCardLink('');
-	}, [props.reset])
+	}, [props.reset]);
 
 	return (
 		<PopupWithForm
