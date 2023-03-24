@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 //гибридный элемент - всплывающее окно смены аватара
@@ -13,6 +13,11 @@ function AvatarEditPopup(props) {
 		props.changeBtnText('Сохранение...');
 		props.onUpdateAvatar(avatarLink.current.value);
 	}
+
+	//функция очистки формы после успешной отправки данных
+	useEffect(() => {
+		avatarLink.current.value = '';
+	}, [props.reset])
 
 	return (
 		<PopupWithForm
@@ -32,7 +37,7 @@ function AvatarEditPopup(props) {
 				ref={avatarLink}
 				autoFocus
 				required
-				/>
+			/>
 			<span className="form__error-message" id="avatarLink-error"></span>
 		</PopupWithForm>
 	);

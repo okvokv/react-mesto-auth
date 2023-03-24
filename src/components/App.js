@@ -25,7 +25,7 @@ function App() {
 
   //аутентификация пользователя при открытии страницы, сверка жетона
   useEffect(() => {
-    handleTokenCheck();
+    handleTokenCheck()
   }, []);
 
   //объявление данных массива карточек в глобальной области
@@ -43,6 +43,24 @@ function App() {
   }, []);
 
   //----------------------------------------------------------------------------------
+  //объявление переменных очистки форм
+  const [avatarFormReset, setAvatarFormReset] = useState(false);
+  const [cardFormReset, setCardFormReset] = useState(false);
+
+  //объявление индикатора состояния любого попапа в глобальной области
+  const [popupOpened, setPopupOpened] = useState(false)
+
+  //функция закрытия попапов при нажатии на <Escape>
+  useEffect(() => {
+    function closeByEscape(event) {
+      if (event.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+    if (popupOpened) document.addEventListener('keydown', closeByEscape);
+    return function () { document.removeEventListener('keydown', closeByEscape) };
+  }, [popupOpened]);
+
   //функция закрытия попапов
   function closeAllPopups() {
     setAvatarEditPopupOpened(false);
@@ -82,7 +100,7 @@ function App() {
     if (token) {
       auth.checkToken(token)
         .then(data => {
-          setUserEmail(data.data.email);                    
+          setUserEmail(data.data.email);
           setLoggedIn(true);
           navigate('/');
         })
@@ -100,7 +118,7 @@ function App() {
         localStorage.setItem('jwt', data.token);
         //запуск проверки токена, чтобы получить название почты
         handleTokenCheck();
-        //почистить форму
+
       })
       .catch(err => {
         setLoggedIn(false);
@@ -120,14 +138,16 @@ function App() {
       .then(() => {
         setRegSuccess(true);
         setInfoTooltipOpened(true);
+        setPopupOpened(true);
         setUserEmail(email);
         setUserPwd(password);
         navigate('/sign-in')
-        //почистить форму
+
       })
       .catch(err => {
         setRegSuccess(false);
         setInfoTooltipOpened(true);
+        setPopupOpened(true);
         console.log('Внутренняя ошибка: ', err);
       })
   };
@@ -147,6 +167,8 @@ function App() {
   function handleLogOut() {
     localStorage.removeItem('jwt');
     setSubmitBtnText('Войти');
+    setUserEmail('');
+    setUserPwd('');
     setLoggedIn(false);
   };
 
@@ -157,6 +179,7 @@ function App() {
   function handleAvatarBtnClick() {
     setSubmitBtnText('Сохранить');
     setAvatarEditPopupOpened(true);
+    setPopupOpened(true);
   };
 
   //объявление состояния попапа с профилем в глобальной области
@@ -165,6 +188,7 @@ function App() {
   function handleProfileBtnClick() {
     setSubmitBtnText('Сохранить');
     setProfileEditPopupOpened(true);
+    setPopupOpened(true);
   };
 
   //объявление состояния попапа добавления контента в глобальной области
@@ -173,6 +197,7 @@ function App() {
   function handleCardBtnClick() {
     setSubmitBtnText('Создать');
     setCardAddPopupOpened(true);
+    setPopupOpened(true);
   };
 
   //объявление состояния попапа с большой картинкой в глобальной области
@@ -183,6 +208,7 @@ function App() {
   function handleImageClick(cardData) {
     setClickedImage(cardData);
     setImagePopupOpened(true);
+    setPopupOpened(true);
   };
 
   //объявление состояния попапа подтверждения удаления в глобальной области
@@ -192,6 +218,7 @@ function App() {
     setClickedImage(cardId);
     setSubmitBtnText('Да');
     setPopupWithConfirmationOpened(true);
+    setPopupOpened(true);
   };
 
   //---------------------------------------------------------------------------------  
@@ -201,7 +228,7 @@ function App() {
       .then(data => {
         setCurrentUserData(data);
         closeAllPopups();
-        //почистить форму
+        setAvatarFormReset(!avatarFormReset);
       })
       .catch(err => {
         setSubmitBtnText('Ошибка. Попробуйте снова');
@@ -215,7 +242,7 @@ function App() {
       .then(data => {
         setCurrentUserData(data);
         closeAllPopups();
-        //почистить форму
+        //очистить сообщ. об ошибке
       })
       .catch(err => {
         setSubmitBtnText('Ошибка. Попробуйте снова');
@@ -229,7 +256,7 @@ function App() {
       .then(newCardData => {
         setCardsData([newCardData, ...cardsData]);
         closeAllPopups();
-        //почистить форму
+        setCardFormReset(!cardFormReset);
       })
       .catch(err => {
         setSubmitBtnText('Ошибка. Попробуйте снова');
@@ -319,6 +346,7 @@ function App() {
           opened={avatarEditPopupOpened}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          reset={avatarFormReset}
         />
 
         {/*Всплывающие окна c формой редактирования профиля ========*/}
@@ -337,6 +365,7 @@ function App() {
           opened={cardAddPopupOpened}
           onClose={closeAllPopups}
           onCardAdd={handleCardAdd}
+          reset={cardFormReset}
         />
 
         {/*Всплывающее окно с формой подтверждения удаления ========*/}

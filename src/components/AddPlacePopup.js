@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 //гибридный элемент - всплывающее окно добавления контента
@@ -25,6 +25,12 @@ function CardAddPopup(props) {
 		props.onCardAdd(cardName, cardLink);
 	};
 
+	//функция очистки формы после успешной отправки данных
+	useEffect(() => {
+		setCardName('');
+		setCardLink('');
+	}, [props.reset])
+
 	return (
 		<PopupWithForm
 			type={'card'}
@@ -46,7 +52,7 @@ function CardAddPopup(props) {
 				onChange={handleSetName}
 				autoFocus
 				required
-				/>
+			/>
 			<span className="form__error-message" id="cardName-error"></span>
 			<input
 				className="form__field form__field_type_cardlink"
@@ -54,9 +60,9 @@ function CardAddPopup(props) {
 				placeholder="Ссылка на картинку"
 				name="cardLink"
 				value={cardLink}
-				onChange={handleSetLink} 
+				onChange={handleSetLink}
 				required
-				/>
+			/>
 			<span className="form__error-message" id="cardLink-error"></span>
 		</PopupWithForm>
 	);
