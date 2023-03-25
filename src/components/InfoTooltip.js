@@ -8,6 +8,7 @@ function InfoTooltip(props) {
 
 		<div className={`popup popup_type_reginfo ${props.opened && 'popup_opened'}`}>
 			<div className="popup__container">
+				<div className="form">
 
 				<button
 					className="popup__close-button"
@@ -22,7 +23,7 @@ function InfoTooltip(props) {
 				/>
 
 				<p className="form__reg-message">{props.success ? 'Вы успешно зарегистрировались !' : 'Что-то пошло не так ! Пропробуйте ещё раз.'}</p>
-
+        </div> 
 			</div>
 		</div>
 
