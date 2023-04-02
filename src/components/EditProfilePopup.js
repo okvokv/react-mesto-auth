@@ -1,4 +1,4 @@
-import  React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
@@ -58,7 +58,7 @@ function ProfileEditPopup(props) {
 				onChange={handleChangeName}
 				autoFocus
 				required
-				/>
+			/>
 
 			<span className="form__error-message" id="name-error"></span>
 
@@ -70,9 +70,9 @@ function ProfileEditPopup(props) {
 				minLength="2"
 				maxLength="200"
 				value={description}
-				onChange={handleChangeDescription} 
+				onChange={handleChangeDescription}
 				required
-				/>
+			/>
 
 			<span className="form__error-message" id="description-error"></span>
 		</PopupWithForm>

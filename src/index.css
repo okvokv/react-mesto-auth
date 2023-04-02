@@ -57,6 +57,7 @@
 @import url(./blocks/form/__error-message/_visible/form__error-message_visible.css);
 @import url(./blocks/form/__reg-caption/form__reg-caption.css);
 @import url(./blocks/form/__reg-link/form__reg-link.css);
+@import url(./blocks/form/__reg-icon/form__reg-icon.css);
 @import url(./blocks/form/__reg-message/form__reg-message.css);
 @import url(./blocks/form/__submit-button/form__submit-button.css);
 @import url(./blocks/form/__submit-button/_theme-dark/form__submit-button_theme-dark.css);

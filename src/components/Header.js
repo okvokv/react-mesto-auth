@@ -15,7 +15,7 @@ function Header(props) {
 
 			<div className="header__group">
 				<h3 className="header__email">{props.loggedIn && props.userEmail}</h3>
-				<h3 className="header__link" onClick={handleClick}>{(props.loggedIn && 'Выйти') || props.btnText}</h3>
+				<h3 className="header__link" onClick={handleClick}>{props.loggedIn ? 'Выйти' : props.btnText}</h3>
 			</div>
 
 		</header>

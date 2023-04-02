@@ -47,22 +47,6 @@ function App() {
   const [avatarFormReset, setAvatarFormReset] = useState(false);
   const [cardFormReset, setCardFormReset] = useState(false);
 
-  //объявление индикатора состояния любого попапа в глобальной области
-  const [popupOpened, setPopupOpened] = useState(false)
-
-  //функция закрытия попапов при нажатии на <Escape>
-  useEffect(() => {
-    function closeByEscape(event) {
-      if (event.key === 'Escape') {
-        closeAllPopups();
-      }
-    };
-    if (popupOpened) {
-      document.addEventListener('keydown', closeByEscape)
-      return function () { document.removeEventListener('keydown', closeByEscape) };
-    }
-  }, [popupOpened]);
-
   //функция закрытия попапов
   function closeAllPopups() {
     setAvatarEditPopupOpened(false);
@@ -72,8 +56,6 @@ function App() {
     setImagePopupOpened(false);
     setClickedImage({});
     setInfoTooltipOpened(false);
-    setPopupOpened(false);
-
   };
 
   //-------------------------------------------------------------------------------
@@ -142,7 +124,6 @@ function App() {
       .then(() => {
         setRegSuccess(true);
         setInfoTooltipOpened(true);
-        setPopupOpened(true);
         setUserEmail(email);
         setUserPwd(password);
         navigate('/sign-in')
@@ -151,12 +132,11 @@ function App() {
       .catch(err => {
         setRegSuccess(false);
         setInfoTooltipOpened(true);
-        setPopupOpened(true);
         console.log('Внутренняя ошибка: ', err);
       })
   };
 
-  //функция замены страницы
+  //функция переключения страницы
   function handleTogglePage() {
     if (location.pathname === '/sign-in') {
       navigate('/sign-up')
@@ -183,7 +163,6 @@ function App() {
   function handleAvatarBtnClick() {
     setSubmitBtnText('Сохранить');
     setAvatarEditPopupOpened(true);
-    setPopupOpened(true);
   };
 
   //объявление состояния попапа с профилем в глобальной области
@@ -192,7 +171,6 @@ function App() {
   function handleProfileBtnClick() {
     setSubmitBtnText('Сохранить');
     setProfileEditPopupOpened(true);
-    setPopupOpened(true);
   };
 
   //объявление состояния попапа добавления контента в глобальной области
@@ -201,7 +179,6 @@ function App() {
   function handleCardBtnClick() {
     setSubmitBtnText('Создать');
     setCardAddPopupOpened(true);
-    setPopupOpened(true);
   };
 
   //объявление состояния попапа с большой картинкой в глобальной области
@@ -212,7 +189,6 @@ function App() {
   function handleImageClick(cardData) {
     setClickedImage(cardData);
     setImagePopupOpened(true);
-    setPopupOpened(true);
   };
 
   //объявление состояния попапа подтверждения удаления в глобальной области
@@ -222,7 +198,6 @@ function App() {
     setClickedImage(cardId);
     setSubmitBtnText('Да');
     setPopupWithConfirmationOpened(true);
-    setPopupOpened(true);
   };
 
   //---------------------------------------------------------------------------------  
