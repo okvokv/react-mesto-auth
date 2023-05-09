@@ -102,7 +102,7 @@ function App() {
     auth.logIn(email, password)
       .then(data => {
         localStorage.setItem('jwt', data.token);
-        //запуск проверки токена, чтобы получить название почты
+        //запуск проверки жетона, чтобы получить название почты
         handleTokenCheck();
 
       })

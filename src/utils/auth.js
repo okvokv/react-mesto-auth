@@ -39,7 +39,8 @@ class Auth extends BaseApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${_token}`
+				Authorization: `Bearer ${_token}`,
+				// credentials: 'include',
 			}
 		})
 	};

@@ -16,7 +16,8 @@ class Api extends BaseApi {
 	_getUserData() {
 		return this._request('users/me', {
 			method: 'GET',
-			headers: this._headers
+			headers: this._headers,
+			// credentials: 'include', отсылать куки при расположении b/f частей на разных доменах
 		})
 	};
 
@@ -24,7 +25,8 @@ class Api extends BaseApi {
 	getAllCardsData() {
 		return this._request('cards', {
 			method: 'GET',
-			headers: this._headers
+			headers: this._headers,
+			// credentials: 'include',
 		})
 	};
 
@@ -38,6 +40,7 @@ class Api extends BaseApi {
 		return this._request('users/me/avatar', {
 			method: 'PATCH',
 			headers: this._headers,
+			// credentials: 'include',
 			body: JSON.stringify({
 				avatar: _link
 			})
@@ -49,6 +52,7 @@ class Api extends BaseApi {
 		return this._request('users/me', {
 			method: 'PATCH',
 			headers: this._headers,
+			// credentials: 'include',
 			body: JSON.stringify({
 				name: _name,
 				about: _description
@@ -61,6 +65,7 @@ class Api extends BaseApi {
 		return this._request('cards', {
 			method: 'POST',
 			headers: this._headers,
+			// credentials: 'include',
 			body: JSON.stringify({
 				name: _cardName,
 				link: _cardLink
@@ -72,7 +77,8 @@ class Api extends BaseApi {
 	deleteCard(_cardId) {
 		return this._request(`cards/${_cardId}`, {
 			method: 'DELETE',
-			headers: this._headers
+			headers: this._headers,
+			// credentials: 'include',
 		})
 	};
 
@@ -80,7 +86,8 @@ class Api extends BaseApi {
 	setLike(_cardId) {
 		return this._request(`cards/${_cardId}/likes`, {
 			method: 'PUT',
-			headers: this._headers
+			headers: this._headers,
+			// credentials: 'include',
 		})
 	};
 
@@ -88,7 +95,8 @@ class Api extends BaseApi {
 	deleteLike(_cardId) {
 		return this._request(`cards/${_cardId}/likes`, {
 			method: 'DELETE',
-			headers: this._headers
+			headers: this._headers,
+			// credentials: 'include',
 		})
 	};
 
