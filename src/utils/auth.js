@@ -40,7 +40,7 @@ class Auth extends BaseApi {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${_token}`,
-				// credentials: 'include',
+				credentials: 'include', // отсылать куки при расположении b/f на разных доменах
 			}
 		})
 	};
