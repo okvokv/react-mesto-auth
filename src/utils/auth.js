@@ -21,7 +21,7 @@ class Auth extends BaseApi {
 		})
 	};
 
-	//метод авторизации зарегистрированного пользователя
+	//метод авторизации пользователя
 	logIn(_email, _password) {
 		return this._request('signin', {
 			method: 'POST',
@@ -39,7 +39,7 @@ class Auth extends BaseApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${_token}`,
+				authorization: this._getToken(),// `Bearer ${_token}`, // отсылать жетон или
 				credentials: 'include', // отсылать куки при расположении b/f на разных доменах
 			}
 		})

@@ -97,14 +97,14 @@ function App() {
     };
   };
 
-  //функция отправки данных для входа и обработки ответа
+  //функция отправки данных для авторизации и обработки ответа
   function handleLogIn(email, password) {
     auth.logIn(email, password)
       .then(data => {
         localStorage.setItem('jwt', data.token);
-        //запуск проверки жетона, чтобы получить название почты
-        handleTokenCheck();
-
+        setUserEmail(email);
+        setLoggedIn(true);
+        navigate('/');
       })
       .catch(err => {
         setLoggedIn(false);
@@ -127,7 +127,6 @@ function App() {
         setUserEmail(email);
         setUserPwd(password);
         navigate('/sign-in')
-
       })
       .catch(err => {
         setRegSuccess(false);

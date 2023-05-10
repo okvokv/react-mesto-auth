@@ -27,7 +27,7 @@ function Register(props) {
   function handleSubmit(event) {
     event.preventDefault();
     props.onRegistration(email, password);
-  };
+     };
 
   return (
     //секция с формой регистрации ======================================== 

@@ -3,6 +3,10 @@ export default class BaseApi {
 	constructor(baseUrl) {
 		this._baseUrl = baseUrl;
 	}
+
+	_getToken() {
+		return `Bearer ${localStorage.getItem('jwt')}`
+	}
 	
 	_request(_endUrl, _options) {
 		return fetch(`${this._baseUrl}/${_endUrl}`, _options)
