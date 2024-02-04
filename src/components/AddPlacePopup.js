@@ -25,7 +25,7 @@ function CardAddPopup(props) {
 	
 	return (
 		<PopupWithForm
-			type={'card'}
+			type='card'
 			formTitle='Новое место'
 			btnText={props.btnText}
 			btnDisabled={!valid}

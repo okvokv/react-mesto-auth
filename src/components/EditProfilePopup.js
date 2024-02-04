@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import useFormValidation from '../hooks/FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -10,10 +10,10 @@ function ProfileEditPopup(props) {
 	const currentUserData = React.useContext(CurrentUserContext);
 
 	// объявление данных в глобальной области
-	const { valid, values, errorSpans, handleChangeValue } = useFormValidation({name: currentUserData.name, description: currentUserData.about}, false, {});
+	const { valid, values, errorSpans, handleChangeValue, resetValid } = useFormValidation({ name: currentUserData.name, description: currentUserData.about }, false, {});
 
-	const {name, description} = values;
-	
+	const { name, description } = values;
+
 	//------------------------------------------------------------------------
 	//промежуточная функция отправки содержания
 	function handleSubmit(event) {
@@ -21,6 +21,11 @@ function ProfileEditPopup(props) {
 		props.onChangeBtnText('Сохранение...');
 		props.onSubmit(name, description);
 	};
+
+	//функция (очистки формы) установки невалидности формы после успешной отправки данных
+	useEffect(() => {
+		resetValid();
+	}, [props.reset])
 
 	//----------------------------------------------------------------------
 	return (
@@ -35,7 +40,7 @@ function ProfileEditPopup(props) {
 		>
 			{/* == ядро с формой редактирования профиля ====================*/}
 			<input
-				className={`form__input form__input_type_name ${errorSpans.nameError &&'form__input_type_error'}`}
+				className={`form__input form__input_type_name ${errorSpans.nameError && 'form__input_type_error'}`}
 				type="text"
 				placeholder="Имя"
 				name="name"
@@ -50,7 +55,7 @@ function ProfileEditPopup(props) {
 			<span className="form__error-message" id="name-error">{errorSpans.nameError}</span>
 
 			<input
-				className={`{form__input form__input_type_description ${errorSpans.descriptionError &&'form__input_type_error'}`}
+				className={`form__input form__input_type_description ${errorSpans.descriptionError && 'form__input_type_error'}`}
 				type="text"
 				placeholder="О себе"
 				name="description"

@@ -17,12 +17,17 @@ export default function useFormValidation(initialData, initialValid, initialErro
   }
 
   // функция очистки формы
-  function resetForm () {
+  function resetForm() {
     for (const key in values) {
-      values[key]='';
+      values[key] = '';
     }
     setValid(false);
-  };
+  }
 
-  return { valid, values, errorSpans, handleChangeValue, resetForm };
+  // функция сброса валидности
+  function resetValid() {
+    setValid(false);
+  }
+
+  return { valid, values, errorSpans, handleChangeValue, resetForm, resetValid };
 }

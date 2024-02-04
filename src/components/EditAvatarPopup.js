@@ -5,7 +5,7 @@ import PopupWithForm from './PopupWithForm.js';
 //гибридный элемент - всплывающее окно смены аватара
 function AvatarEditPopup(props) {
 
-	const { valid, errorSpans, handleChangeValue } = useFormValidation({ avatarlink: '' }, false, {})
+	const { valid, errorSpans, handleChangeValue, resetForm } = useFormValidation({ avatarlink: '' }, false, {})
 
 	//задание рефа
 	const avatarLink = React.useRef('');
@@ -20,7 +20,8 @@ function AvatarEditPopup(props) {
 	//функция очистки формы после успешной отправки данных
 	useEffect(() => {
 		avatarLink.current.value = '';
-	}, [props.reset])
+		resetForm();
+}, [props.reset])
 
 	return (
 		<PopupWithForm

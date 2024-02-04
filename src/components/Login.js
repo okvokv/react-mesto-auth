@@ -20,7 +20,6 @@ function Login(props) {
   }
 
   //------------------------------------------------------------------------
-
   //промежуточная функция отправки данных
   function handleSubmit(event) {
     event.preventDefault();

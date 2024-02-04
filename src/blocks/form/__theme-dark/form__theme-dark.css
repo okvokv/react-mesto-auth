@@ -1,6 +1,8 @@
 .form__theme-dark {
 	margin: auto;
+	padding-bottom: 0;
 	height: calc(100dvh - 264px);
+	min-height: fit-content;
 	color: #FFFFFF;
 	background-color: unset;
 }

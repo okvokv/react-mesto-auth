@@ -20,6 +20,8 @@ import InfoTooltip from './InfoTooltip.js';
 //гибридный элемент всего проекта
 function App() {
   //---------------------------------------------------------------------------------
+  //объявление состояния индикатора входа в глобальной области
+  const [loggedIn, setLoggedIn] = useState(false);
   //задание переменной навигации и извлечения теущего адреса
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,9 +30,6 @@ function App() {
   const [userPwd, setUserPwd] = useState('');
   const [valid, setValid] = useState(false);
   const [errorSpans, setErrorSpans] = useState('');
-
-  //объявление состояния индикатора входа в глобальной области
-  const [loggedIn, setLoggedIn] = useState(false);
 
   //объявление состояния регистрации в глобальной области
   const [regSuccess, setRegSuccess] = useState(false);
@@ -43,6 +42,7 @@ function App() {
   //объявление данных массива карточек в глобальной области
   const [cardsData, setCardsData] = useState([]);
 
+  // ============================================================================
   // отправка жетона для аутентификации
   const checkToken = useCallback(() => {
     auth.checkToken()
@@ -72,9 +72,9 @@ function App() {
   }, []);
 
   //------------------------------------------------------------------------------
-
-  //объявление переменных очистки форм
+  //объявление состояния команды сброса форм
   const [avatarFormReset, setAvatarFormReset] = useState(false);
+  const [profileFormReset, setProfileFormReset] = useState(false);
   const [cardFormReset, setCardFormReset] = useState(false);
 
   //функция закрытия попапов
@@ -91,12 +91,15 @@ function App() {
   //------------------------------------------------------------------------------
   //задание текста кнопки header'а в глобальной области
   const [headerBtnText, setHeaderBtnText] = useState('Регистрация')
-  //задание текста кнопки сохранения в глобальной области
+
+  //задание текста кнопки отправки данных в глобальной области
   const [submitBtnText, setSubmitBtnText] = useState('Войти');
-  //функция для изменения текста кнопки при отправке данных
+
+  //функция изменения текста кнопки отправки данных
   function changeSubmitBtnText(text) {
     setSubmitBtnText(text);
   };
+
   //----------------------------------------------------------------------------
   //функция отправки данных для авторизации и обработки ответа
   function handleLogIn(email, password) {
@@ -113,7 +116,7 @@ function App() {
       })
   };
 
-  //функция отправки данных на регистрацию и обработки ответа
+  //функция отправки данных для регистрации и обработки ответа
   function handleRegistration(email, password) {
     auth.registrate(email, password)
       .then(() => {
@@ -143,9 +146,11 @@ function App() {
   function handleLogOut() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
+    setHeaderBtnText('Регистрация');
     setSubmitBtnText('Войти');
     setUserEmail('');
     setUserPwd('');
+    setValid(false);
   };
 
   // ---------------------------------------------------------------------------
@@ -213,6 +218,7 @@ function App() {
       .then(data => {
         setCurrentUserData(data);
         closeAllPopups();
+        setProfileFormReset(!profileFormReset);
       })
       .catch(err => {
         setSubmitBtnText('Ошибка. Попробуйте снова');
@@ -262,32 +268,35 @@ function App() {
     <CurrentUserContext.Provider value={currentUserData}>
       <div className="page">
 
+        {/*Секция заголовок ======================================= */}
         <Header
           loggedIn={loggedIn}
           btnText={headerBtnText}
           email={userEmail}
-          onTogglePage={handleTogglePage}
           onLogOut={handleLogOut}
+          onTogglePage={handleTogglePage}
         />
 
-        {/*Секция заголовок ======================================= */}
         <Routes>
+          {/* Основная секция ====================================== */}
           <Route path='/' element={
             <ProtectedRoute
-              //Основная секция ======================================//
-              element={Main}
-              cardsData={cardsData}
-              onAvatarBtnClick={handleAvatarBtnClick}
-              onProfileBtnClick={handleProfileBtnClick}
-              onCardBtnClick={handleCardBtnClick}
-              onImageClick={handleImageClick}
-              onCardDelete={handleDeleteCardClick}
-              onLikeClick={handleLikeClick}
               loggedIn={loggedIn}
+              element={
+                <Main
+                  cardsData={cardsData}
+                  onAvatarBtnClick={handleAvatarBtnClick}
+                  onProfileBtnClick={handleProfileBtnClick}
+                  onCardBtnClick={handleCardBtnClick}
+                  onImageClick={handleImageClick}
+                  onCardDelete={handleDeleteCardClick}
+                  onLikeClick={handleLikeClick}
+                />}
             />}
           />
+
+          {/* Секция вход ============================================ */}
           <Route path='/sign-in' element={
-            // Секция вход ============================================//
             <Login
               btnText={submitBtnText}
               email={userEmail}
@@ -302,8 +311,9 @@ function App() {
               onSubmit={handleLogIn}
             />}
           />
+
+          {/* Секция регистрация ===================================== */}
           <Route path='/sign-up' element={
-            // Секция регистрация =====================================//
             <Register
               btnText='Зарегистрироваться'
               email={userEmail}
@@ -343,6 +353,7 @@ function App() {
           opened={profileEditPopupOpened}
           onClose={closeAllPopups}
           onSubmit={handleUpdateUser}
+          reset={profileFormReset}
         />
 
         {/*Всплывающее окно c формой добавления контента ===========*/}
