@@ -8,7 +8,8 @@ function CardAddPopup(props) {
 	// объявление данных в глобальной области
 	const { valid, values, errorSpans, handleChangeValue, resetForm } = useFormValidation({ cardName: '', cardLink: '' }, false, {});
 
-	let { cardName, cardLink } = values;
+	const { cardName, cardLink } = values;
+	
 
 	//промежуточная функция отправки данных карточки
 	function handleSubmit(event) {
@@ -34,7 +35,7 @@ function CardAddPopup(props) {
 		>
 			{/* == ядро с формой добавления контента ===============================*/}
 			<input
-				className={`form__input form__input_type_cardname ${errorSpans.cardName && 'form__input_type_error'}`}
+				className={`form__input form__input_type_cardname ${errorSpans.cardNameError && 'form__input_type_error'}`}
 				type="text"
 				placeholder="Название"
 				name="cardName"
@@ -45,9 +46,9 @@ function CardAddPopup(props) {
 				autoFocus
 				required
 			/>
-			<span className="form__error-message" id="cardName-error">{errorSpans.cardName}</span>
+			<span className="form__error-message" id="cardName-error">{errorSpans.cardNameError}</span>
 			<input
-				className={`form__input form__input_type_cardlink ${errorSpans.cardLink && 'form__input_type_error'}`}
+				className={`form__input form__input_type_cardlink ${errorSpans.cardLinkError && 'form__input_type_error'}`}
 				type="url"
 				placeholder="Ссылка на картинку"
 				name="cardLink"
@@ -55,7 +56,7 @@ function CardAddPopup(props) {
 				onChange={handleChangeValue}
 				required
 			/>
-			<span className="form__error-message" id="cardLink-error">{errorSpans.cardLink}</span>
+			<span className="form__error-message" id="cardLink-error">{errorSpans.cardLinkError}</span>
 		</PopupWithForm>
 	);
 };

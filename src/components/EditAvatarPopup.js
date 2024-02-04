@@ -34,7 +34,7 @@ function AvatarEditPopup(props) {
 		>
 			{/* == ядро с формой смены аватара ===================================*/}
 			<input
-				className={`form__input form__input_type_avatarlink ${errorSpans.avatarLink &&'form__input_type_error'}`}
+				className={`form__input form__input_type_avatarlink ${errorSpans.avatarLinkError &&'form__input_type_error'}`}
 				type="url"
 				placeholder="Ссылка на аватар"
 				name="avatarLink"
@@ -43,7 +43,7 @@ function AvatarEditPopup(props) {
 				autoFocus
 				required
 			/>
-			<span className="form__error-message" id="avatarLink-error">{errorSpans.avatarLink}</span>
+			<span className="form__error-message" id="avatarLink-error">{errorSpans.avatarLinkError}</span>
 		</PopupWithForm>
 	);
 };

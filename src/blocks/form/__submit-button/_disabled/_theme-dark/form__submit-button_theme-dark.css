@@ -1,0 +1,11 @@
+.form__submit-button_disabled_theme-dark {
+	color: #ffffff;
+	background-color: #ffd3be;
+	opacity: .6;
+	cursor: not-allowed;
+}
+
+.form__submit-button_disabled_theme-dark:hover {
+	color: #ffffff;
+	background-color: #ffd3be;
+}

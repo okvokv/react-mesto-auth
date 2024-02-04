@@ -55,7 +55,7 @@ function FormContent(props) {
 			<span className="form__error-message" id="pwd-error">{pwdError}</span>
 
 			<button
-				className={`form__submit-button form__submit-button_theme-dark ${!valid && 'form__submit-button_disabled'}`}
+				className={`form__submit-button form__submit-button_theme-dark ${!valid && 'form__submit-button_disabled form__submit-button_disabled_theme-dark'}`}
 				type="submit"
 				aria-label="кнопка отправки"
 				disabled={!valid}

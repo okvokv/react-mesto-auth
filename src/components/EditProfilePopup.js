@@ -13,6 +13,7 @@ function ProfileEditPopup(props) {
 	const { valid, values, errorSpans, handleChangeValue } = useFormValidation({name: currentUserData.name, description: currentUserData.about}, false, {});
 
 	const {name, description} = values;
+	
 	//------------------------------------------------------------------------
 	//промежуточная функция отправки содержания
 	function handleSubmit(event) {
@@ -34,7 +35,7 @@ function ProfileEditPopup(props) {
 		>
 			{/* == ядро с формой редактирования профиля ====================*/}
 			<input
-				className={`form__input form__input_type_name ${errorSpans.name &&'form__input_type_error'}`}
+				className={`form__input form__input_type_name ${errorSpans.nameError &&'form__input_type_error'}`}
 				type="text"
 				placeholder="Имя"
 				name="name"
@@ -46,10 +47,10 @@ function ProfileEditPopup(props) {
 				required
 			/>
 
-			<span className="form__error-message" id="name-error">{errorSpans.name}</span>
+			<span className="form__error-message" id="name-error">{errorSpans.nameError}</span>
 
 			<input
-				className={`{form__input form__input_type_description ${errorSpans.description &&'form__input_type_error'}`}
+				className={`{form__input form__input_type_description ${errorSpans.descriptionError &&'form__input_type_error'}`}
 				type="text"
 				placeholder="О себе"
 				name="description"
@@ -60,7 +61,7 @@ function ProfileEditPopup(props) {
 				required
 			/>
 
-			<span className="form__error-message" id="description-error">{errorSpans.description}</span>
+			<span className="form__error-message" id="description-error">{errorSpans.descriptionError}</span>
 		</PopupWithForm>
 	);
 };

@@ -58,10 +58,10 @@
 @import url(./blocks/form/__input/_type_avatarlink/form__input_type_avatarlink.css);
 @import url(./blocks/form/__input/_type_error/form__input_type_error.css);
 @import url(./blocks/form/__error-message/form__error-message.css);
-@import url(./blocks/form/__error-message/_visible/form__error-message_visible.css);
 @import url(./blocks/form/__submit-button/form__submit-button.css);
 @import url(./blocks/form/__submit-button/_theme-dark/form__submit-button_theme-dark.css);
 @import url(./blocks/form/__submit-button/_disabled/form__submit-button_disabled.css);
+@import url(./blocks/form/__submit-button/_disabled/_theme-dark/form__submit-button_theme-dark.css);
 @import url(./blocks/form/__caption/form__caption.css);
 @import url(./blocks/form/__link/form__link.css);
 @import url(./blocks/form/__text/form__text.css);
