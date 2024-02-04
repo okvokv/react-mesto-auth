@@ -3,21 +3,20 @@
 	margin-top: 6px;
 	width: 358px;
 	height: 50px;
-	background-color: #000000;
-	border: 0;
-	border-radius: 2px;
+	border: none;
+	border-radius: 4px;
 	box-sizing: border-box;
 	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 1);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 18px;
-	line-height: 1.22;
 	transition: .5s;
 	cursor: pointer;
 }
 
 .form__submit-button:hover {
-	opacity: 0.8;
+	background-color: rgba(0, 0, 0, .8);
 	transition: 0s;
 }
 
@@ -25,7 +24,7 @@
 	.form__submit-button {
 		width: 238px;
 		height: 46px;
-		transition: .5s;
 		font-size: 14px;
+		transition: .5s;
 	}
 }

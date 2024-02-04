@@ -1,8 +1,10 @@
 .element {
 	margin: 0;
 	position: relative;
-	max-width: 282px;
+	width: 282px;
 	background-color: white;
+	border: none;
 	border-radius: 10px;
+	overflow: hidden;
 	/* элементы сохраняются в обратном порядке */
-	}
+}

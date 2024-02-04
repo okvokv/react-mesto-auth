@@ -1,11 +1,13 @@
 .main {
 	margin: 0 auto;
+	width: 100%;
+	box-sizing: border-box;
 	max-width: 880px;
-	min-height: calc(100vh - 250px); 
 }
 
 @media screen and (max-width: 918px) {
 	.main {
-		max-width: calc(100% - 2*19px);
+		padding-left: 19px;
+		padding-right: 19px;
 	}
 }

@@ -28,5 +28,5 @@
 
 .popup__close-button:hover {
 	opacity: 0.6;
-	transition: 0s;
+	transition: 0;
 }

@@ -1,9 +1,14 @@
 .form__submit-button_theme-dark {
-	margin-top: 186px;
+	margin-top: auto;
+	border-radius: 40px;
 	color: #000000;
-	background-color: #FFFFFF;
+	background-color: rgba(0, 149, 255, 1);
 }
 
+.form__submit-button_theme-dark:hover {
+	background-color: rgba(0, 149, 255, 0.6);
+	transition: 0s;
+}
 
 @media screen and (max-width: 619px) {
 	.form__submit-button_theme-dark {

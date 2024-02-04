@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import avatar from '../images/avatar.png';
 import auth from '../utils/auth.js';
@@ -20,16 +20,45 @@ import InfoTooltip from './InfoTooltip.js';
 //гибридный элемент всего проекта
 function App() {
   //---------------------------------------------------------------------------------
+  //задание переменной навигации и извлечения теущего адреса
+  const navigate = useNavigate();
+  const location = useLocation();
+  //обьявление значения почты, пароля пользователя и валидности формы в глобальной области
+  const [userEmail, setUserEmail] = useState('');
+  const [userPwd, setUserPwd] = useState('');
+  const [valid, setValid] = useState(false);
+  const [errorSpans, setErrorSpans] = useState('');
+
+  //объявление состояния индикатора входа в глобальной области
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  //объявление состояния регистрации в глобальной области
+  const [regSuccess, setRegSuccess] = useState(false);
+  //объявление состояния попапа информации о регистрации в глобальной области
+  const [infoTooltipOpened, setInfoTooltipOpened] = useState(false);
+
   //объявление данных пользователя в глобальной области
   const [currentUserData, setCurrentUserData] = useState({ name: 'Жак-Ив Кусто', about: 'Исследователь океана', avatar: avatar });
 
-  //аутентификация пользователя при открытии страницы, сверка жетона
-  useEffect(() => {
-    handleTokenCheck()
-  }, []);
-
   //объявление данных массива карточек в глобальной области
   const [cardsData, setCardsData] = useState([]);
+
+  // отправка жетона для аутентификации
+  const checkToken = useCallback(() => {
+    auth.checkToken()
+      .then(data => {
+        setLoggedIn(true);
+        setUserEmail(data.data.email);
+      })
+      .catch(err => {
+        setLoggedIn(false);
+        console.log('Внутренняя ошибка: ', err);
+      })
+  }, []);
+
+  useEffect(() => {
+    checkToken();
+  }, [checkToken]);
 
   //получение начальных данных с сервера, однократно
   useEffect(() => {
@@ -42,7 +71,8 @@ function App() {
       .catch(err => console.log('Внутренняя ошибка: ', err))
   }, []);
 
-  //----------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
+
   //объявление переменных очистки форм
   const [avatarFormReset, setAvatarFormReset] = useState(false);
   const [cardFormReset, setCardFormReset] = useState(false);
@@ -58,7 +88,7 @@ function App() {
     setInfoTooltipOpened(false);
   };
 
-  //-------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
   //задание текста кнопки header'а в глобальной области
   const [headerBtnText, setHeaderBtnText] = useState('Регистрация')
   //задание текста кнопки сохранения в глобальной области
@@ -67,43 +97,13 @@ function App() {
   function changeSubmitBtnText(text) {
     setSubmitBtnText(text);
   };
-
   //----------------------------------------------------------------------------
-  //обьявление значения почты и пароля пользователя в глобальной области
-  const [userEmail, setUserEmail] = useState('');
-  const [userPwd, setUserPwd] = useState('')
-
-  //объявление состояния индикатора входа в глобальной области
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  //задание переменной навигации и извлечения теущего адреса
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  //функция отправки жетона для аутентификации
-  function handleTokenCheck() {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      auth.checkToken(token)
-        .then(data => {
-          setUserEmail(data.data.email);
-          setLoggedIn(true);
-          navigate('/');
-        })
-        .catch(err => {
-          setLoggedIn(false);
-          console.log('Внутренняя ошибка: ', err);
-        })
-    };
-  };
-
   //функция отправки данных для авторизации и обработки ответа
   function handleLogIn(email, password) {
     auth.logIn(email, password)
       .then(data => {
-        localStorage.setItem('jwt', data.token);
-        setUserEmail(email);
         setLoggedIn(true);
+        localStorage.setItem('jwt', data.token);
         navigate('/');
       })
       .catch(err => {
@@ -113,49 +113,42 @@ function App() {
       })
   };
 
-  //объявление состояния попапа информации о регистрации в глобальной области
-  const [infoTooltipOpened, setInfoTooltipOpened] = useState(false);
-  //объявление состояния регистрации в глобальной области
-  const [regSuccess, setRegSuccess] = useState(false);
-
   //функция отправки данных на регистрацию и обработки ответа
   function handleRegistration(email, password) {
     auth.registrate(email, password)
       .then(() => {
         setRegSuccess(true);
         setInfoTooltipOpened(true);
-        setUserEmail(email);
-        setUserPwd(password);
         navigate('/sign-in')
       })
       .catch(err => {
         setRegSuccess(false);
-        setInfoTooltipOpened(true);
         console.log('Внутренняя ошибка: ', err);
+        setInfoTooltipOpened(true);
       })
   };
 
   //функция переключения страницы
   function handleTogglePage() {
     if (location.pathname === '/sign-in') {
-      navigate('/sign-up')
       setHeaderBtnText('Вход')
+      navigate('/sign-up')
       return;
     }
-    navigate('/sign-in')
     setHeaderBtnText('Регистрация')
+    navigate('/sign-in')
   };
 
   //функция обработки выхода с сайта
   function handleLogOut() {
     localStorage.removeItem('jwt');
+    setLoggedIn(false);
     setSubmitBtnText('Войти');
     setUserEmail('');
     setUserPwd('');
-    setLoggedIn(false);
   };
 
-  //----------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   //объявление состояния попапа с аватаром в глобальной области
   const [avatarEditPopupOpened, setAvatarEditPopupOpened] = useState(false);
   //функция обработки нажатия на аватар
@@ -199,7 +192,7 @@ function App() {
     setPopupWithConfirmationOpened(true);
   };
 
-  //---------------------------------------------------------------------------------  
+  // ------------------------------------------------------------------------  
   //функция отправки данных для смены аватара
   function handleUpdateAvatar(link) {
     api.setAvatar(link)
@@ -220,7 +213,6 @@ function App() {
       .then(data => {
         setCurrentUserData(data);
         closeAllPopups();
-        //очистить сообщ. об ошибке
       })
       .catch(err => {
         setSubmitBtnText('Ошибка. Попробуйте снова');
@@ -270,14 +262,15 @@ function App() {
     <CurrentUserContext.Provider value={currentUserData}>
       <div className="page">
 
-        {/*Секция заголовок ======================================= */}
         <Header
           loggedIn={loggedIn}
-          userEmail={userEmail}
           btnText={headerBtnText}
+          email={userEmail}
           onTogglePage={handleTogglePage}
           onLogOut={handleLogOut}
         />
+
+        {/*Секция заголовок ======================================= */}
         <Routes>
           <Route path='/' element={
             <ProtectedRoute
@@ -293,23 +286,39 @@ function App() {
               loggedIn={loggedIn}
             />}
           />
-          <Route path='/sign-up' element={
-            <Register
-              btnText='Зарегистрироваться'
-              onTogglePage={handleTogglePage}
-              onRegistration={handleRegistration}
-            />}
-          />
           <Route path='/sign-in' element={
+            // Секция вход ============================================//
             <Login
               btnText={submitBtnText}
-              changeBtnText={changeSubmitBtnText}
               email={userEmail}
-              password={userPwd}
-              onLogIn={handleLogIn}
+              pwd={userPwd}
+              valid={valid}
+              errorSpans={errorSpans}
+              onEmailChange={(email) => setUserEmail(email)}
+              onPwdChange={(pwd) => setUserPwd(pwd)}
+              onValidChange={(valid) => setValid(valid)}
+              onErrorSpansChange={(errorSpans) => setErrorSpans(errorSpans)}
+              onChangeBtnText={changeSubmitBtnText}
+              onSubmit={handleLogIn}
             />}
           />
-          <Route path="*" element={
+          <Route path='/sign-up' element={
+            // Секция регистрация =====================================//
+            <Register
+              btnText='Зарегистрироваться'
+              email={userEmail}
+              pwd={userPwd}
+              valid={valid}
+              errorSpans={errorSpans}
+              onEmailChange={(email) => setUserEmail(email)}
+              onPwdChange={(pwd) => setUserPwd(pwd)}
+              onValidChange={(valid) => setValid(valid)}
+              onErrorSpansChange={(errorSpans) => setErrorSpans(errorSpans)}
+              onTogglePage={handleTogglePage}
+              onSubmit={handleRegistration}
+            />}
+          />
+          <Route path='*' element={
             <Navigate to='/' replace />}
           />
         </Routes>
@@ -317,43 +326,43 @@ function App() {
         {/*Подножие сайта =========================================*/}
         <Footer />
 
-        {/*Всплывающие окна c формой смены аватара ================*/}
+        {/*Всплывающее окно c формой смены аватара ================**/}
         <AvatarEditPopup
           btnText={submitBtnText}
-          changeBtnText={changeSubmitBtnText}
+          onChangeBtnText={changeSubmitBtnText}
           opened={avatarEditPopupOpened}
           onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
+          onSubmit={handleUpdateAvatar}
           reset={avatarFormReset}
         />
 
-        {/*Всплывающие окна c формой редактирования профиля ========*/}
+        {/*Всплывающее окно c формой редактирования профиля =========*/}
         <ProfileEditPopup
           btnText={submitBtnText}
-          changeBtnText={changeSubmitBtnText}
+          onChangeBtnText={changeSubmitBtnText}
           opened={profileEditPopupOpened}
           onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
+          onSubmit={handleUpdateUser}
         />
 
-        {/*Всплывающие окна c формой добавления контента ===========*/}
+        {/*Всплывающее окно c формой добавления контента ===========*/}
         <CardAddPopup
           btnText={submitBtnText}
-          changeBtnText={changeSubmitBtnText}
+          onChangeBtnText={changeSubmitBtnText}
           opened={cardAddPopupOpened}
           onClose={closeAllPopups}
-          onCardAdd={handleCardAdd}
+          onSubmit={handleCardAdd}
           reset={cardFormReset}
         />
 
         {/*Всплывающее окно с формой подтверждения удаления ========*/}
         <PopupWithConfirmation
           btnText={submitBtnText}
-          changeBtnText={changeSubmitBtnText}
+          onChangeBtnText={changeSubmitBtnText}
           clickedImage={clickedImage}
           opened={popupWithConfirmationOpened}
           onClose={closeAllPopups}
-          onCardDelete={handleDeleteCard}
+          onSubmit={handleDeleteCard}
         />
 
         {/*Всплывающее окно с картинкой ============================= */}
@@ -373,6 +382,7 @@ function App() {
       </div>
     </CurrentUserContext.Provider>
   );
+
 };
 
 export default App;

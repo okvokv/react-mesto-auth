@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 //гибридный компонент Popup для обертки любых попапов
-function Popup (props) {
+function Popup(props) {
 	//обработка нажатия на Escape
 	useEffect(() => {
 		function closeByEscape(event) {
@@ -24,23 +24,22 @@ function Popup (props) {
 	};
 
 	return (
-		<div
-			className={`popup popup_type_${props.type} ${props.opened && 'popup_opened'}`}
-			onClick={closeByOverlayClick}
-		>
+		<div className={`popup popup_type_${props.type} ${props.opened && 'popup_opened'}`} onClick={closeByOverlayClick}>
+
 			<div className="popup__container">
+
 				<button
 					className="popup__close-button"
 					type="button"
 					aria-label="кнопка Закрыть"
 					onClick={props.onClose}
-				>
-				</button>
+				></button>
 
-				{/* сюда загружается ядро любого попапа */}
+				{/* сюда загружается содержание любого попапа */}
 				{props.children}
 
 			</div>
+
 		</div>
 	);
 };

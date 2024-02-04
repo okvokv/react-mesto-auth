@@ -1,69 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import useFormValidation from '../hooks/FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
 
 //гибридный элемент - всплывающее окно добавления контента
 function CardAddPopup(props) {
 
-	//объявление данных карточки в глобальной области
-	const [cardName, setCardName] = useState('');
-	const [cardLink, setCardLink] = useState('');
+	// объявление данных в глобальной области
+	const { valid, values, errorSpans, handleChangeValue, resetForm } = useFormValidation({ cardName: '', cardLink: '' }, false, {});
 
-	//функция задания названия
-	function handleSetName(event) {
-		setCardName(event.target.value)
-	}
-
-	//функция задания ссылки
-	function handleSetLink(event) {
-		setCardLink(event.target.value)
-	}
+	let { cardName, cardLink } = values;
 
 	//промежуточная функция отправки данных карточки
 	function handleSubmit(event) {
 		event.preventDefault();
-		props.changeBtnText('Сохранение...');
-		props.onCardAdd(cardName, cardLink);
+		props.onChangeBtnText('Сохранение...');
+		props.onSubmit(cardName, cardLink);
 	};
 
-	//функция очистки формы после успешной отправки данных
+	// функция очистки формы после успешной отправки данных
 	useEffect(() => {
-		setCardName('');
-		setCardLink('');
-	}, [props.reset]);
-
+		resetForm();
+	}, [props.reset])
+	
 	return (
 		<PopupWithForm
 			type={'card'}
 			formTitle='Новое место'
 			btnText={props.btnText}
+			btnDisabled={!valid}
 			opened={props.opened}
 			onClose={props.onClose}
 			onSubmit={handleSubmit}
 		>
 			{/* == ядро с формой добавления контента ===============================*/}
 			<input
-				className="form__field form__field_type_cardname"
+				className={`form__input form__input_type_cardname ${errorSpans.cardName && 'form__input_type_error'}`}
 				type="text"
 				placeholder="Название"
 				name="cardName"
 				minLength="2"
 				maxLength="30"
 				value={cardName}
-				onChange={handleSetName}
+				onChange={handleChangeValue}
 				autoFocus
 				required
 			/>
-			<span className="form__error-message" id="cardName-error"></span>
+			<span className="form__error-message" id="cardName-error">{errorSpans.cardName}</span>
 			<input
-				className="form__field form__field_type_cardlink"
+				className={`form__input form__input_type_cardlink ${errorSpans.cardLink && 'form__input_type_error'}`}
 				type="url"
 				placeholder="Ссылка на картинку"
 				name="cardLink"
 				value={cardLink}
-				onChange={handleSetLink}
+				onChange={handleChangeValue}
 				required
 			/>
-			<span className="form__error-message" id="cardLink-error"></span>
+			<span className="form__error-message" id="cardLink-error">{errorSpans.cardLink}</span>
 		</PopupWithForm>
 	);
 };

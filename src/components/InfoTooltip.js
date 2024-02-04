@@ -11,14 +11,17 @@ function InfoTooltip(props) {
 			type='reginfo'
 			onClose={props.onClose}
 		>
-			<div className="form">
+			<form className="form">
+			
 				<img
-					className="form__reg-icon"
+					className="info__icon"
 					src={props.success ? successIcon : failureIcon}
 					alt={props.success ? 'Галочка' : 'Крестик'}
 				/>
-				<p className="form__reg-message">{props.success ? 'Вы успешно зарегистрировались !' : 'Что-то пошло не так ! Пропробуйте ещё раз.'}</p>
-			</div>
+				<p className="info__text">{props.success ? 'Вы успешно зарегистрировались !' : 'Что-то пошло не так ! Пропробуйте ещё раз.'}</p>
+			
+			</form>
+
 		</Popup>
 	)
 };

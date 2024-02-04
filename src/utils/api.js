@@ -2,9 +2,9 @@ import BaseApi from './BaseApi.js';
 //параметры подключения: 
 const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-59';
 const headers = {
-	authorization: 'ba4cd59f-b9e5-45d4-a657-2ca4f8fa9389',
-	'Content-Type': 'application/json',
-	credentials: 'include'
+		'Content-Type': 'application/json',
+		authorization: 'ba4cd59f-b9e5-45d4-a657-2ca4f8fa9389',
+		credentials: 'include'
 };
 class Api extends BaseApi {
 	constructor(baseUrl, headers) {

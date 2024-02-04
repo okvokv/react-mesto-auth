@@ -1,13 +1,11 @@
 import BaseApi from './BaseApi.js';
 //параметры подключения: 
 const baseUrl = 'https://auth.nomoreparties.co';
-const headers = { 'Content-Type': 'application/json' };
 class Auth extends BaseApi {
-	constructor(baseUrl, headers) {
-		super(baseUrl)
-		this._baseUrl = baseUrl;
-		this._headers = headers;
-	};
+	constructor(baseUrl) {
+		super(baseUrl);
+		this._headers = { 'Content-Type': 'application/json' };
+	}
 
 	//метод регистрации пользователя
 	registrate(_email, _password) {
@@ -34,12 +32,13 @@ class Auth extends BaseApi {
 	};
 
 	//метод аутентификации(отправки жетона для проверки)
-	checkToken(_token) {
+	checkToken() {
+		this._token = this._getToken();
 		return this._request('users/me', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				authorization: this._getToken(),// `Bearer ${_token}`, // отсылать жетон или
+				authorization: this._token, // отсылать жетон или
 				credentials: 'include', // отсылать куки при расположении b/f на разных доменах
 			}
 		})
@@ -48,6 +47,6 @@ class Auth extends BaseApi {
 };
 
 //инициализация класса авторизации
-const auth = new Auth(baseUrl, headers);
+const auth = new Auth(baseUrl);
 
 export default auth;
