@@ -1,9 +1,8 @@
 .footer {
 	margin: 0 auto;
 	margin-top: auto;
+	/*width: 100%;*/
 	max-width: 880px;
-	width: 100%;
-	box-sizing: border-box;
 	padding-top: 66px;
 	padding-bottom: 60px;
 }
@@ -14,5 +13,6 @@
 		padding-bottom: 36px;
 		padding-left: 27px;
 		padding-right: 27px;
+		box-sizing: border-box;
 	}
 }

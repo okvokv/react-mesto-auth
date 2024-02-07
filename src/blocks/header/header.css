@@ -2,13 +2,13 @@
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
+	/*width: 100%;*/
 	max-width: 880px;
-	width: 100%;
 	padding-top: 45px;
 	padding-bottom: 38px;
+	box-sizing: border-box;
 	border-bottom: 1px solid rgba(84, 84, 84, .7);
 	background-color: #000000;
-	box-sizing: border-box;
 }
 
 @media screen and (max-width: 918px) {

@@ -7,9 +7,15 @@
 	background-color: unset;
 }
 
-@media screen and (max-width: 918px) {
+@media screen and (min-width: 620px) and (max-width: 918px) {
 	.form__theme-dark {
-		height: calc(100dvh - 200px);
+		height: calc(100dvh - 190px);
+	}
+}
+
+@media screen and (max-width: 620px) {
+	.form__theme-dark {
+		height: calc(100dvh - 181px);
 	}
 }
 
