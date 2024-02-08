@@ -15,6 +15,10 @@
 	cursor: pointer;
 }
 
+.profile__add-button:hover {
+	opacity: .6;
+}
+
 @media screen and (max-width: 918px) {
 	.profile__add-button {
 		position: center;
@@ -23,8 +27,4 @@
 		width: 282px;
 		background-size: 16px 16px;
 	}
-}
-
-.profile__add-button:hover {
-	opacity: .6;
 }

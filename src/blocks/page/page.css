@@ -1,7 +1,8 @@
 .page {
 	margin: 0 auto;
 	padding: 0;
-	width: 100dvw;
+	width: 100%;
+	/* обл. без прокрутки */
 	min-width: 320px;
 	background-color: #000000;
 	color: white;

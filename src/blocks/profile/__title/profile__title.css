@@ -8,3 +8,13 @@
 	white-space: nowrap;
 	overflow: hidden;
 }
+
+.profile__edit-button:hover {
+	opacity: 0.6;
+}
+
+@media screen and (max-width: 918px) {
+	.profile__title {
+		font-size: 34px;
+	}
+}

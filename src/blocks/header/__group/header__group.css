@@ -8,8 +8,9 @@
 	gap: 20px;
 }
 
-@media screen and (max-width: 918px) {
+@media screen and (max-width: 619px) {
 	.header__group {
-		font-size: 17px;
+		font-size: 11px;
+		gap: 8px;
 	}
 }

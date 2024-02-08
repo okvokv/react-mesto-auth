@@ -49,6 +49,7 @@ function App() {
       .then(data => {
         setLoggedIn(true);
         setUserEmail(data.data.email);
+        navigate('/');
       })
       .catch(err => {
         setLoggedIn(false);
