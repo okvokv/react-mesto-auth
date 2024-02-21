@@ -4,6 +4,7 @@
 	width: 100%;
 	/* обл. без прокрутки */
 	min-width: 320px;
+	min-height: 100dvh;
 	background-color: #000000;
 	color: white;
 	font-family: 'Inter', Arial, sans-serif;
