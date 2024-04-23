@@ -1,6 +1,6 @@
 .element {
-	margin: 0;
 	position: relative;
+	margin: 0 auto;
 	width: 282px;
 	background-color: white;
 	border: none;

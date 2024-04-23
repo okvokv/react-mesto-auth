@@ -28,35 +28,29 @@ function Login(props) {
   };
 
   return (
-    //секция с формой входа ===============================================
-    <>
+    <form className="form form__theme-dark" name="loginForm" onSubmit={handleSubmit} noValidate>
+      <h2 className="form__title form__title_theme-dark">Вход</h2>
 
-      <form className="form form__theme-dark" name="loginForm" onSubmit={handleSubmit} noValidate>
-        <h2 className="form__title form__title_theme-dark">Вход</h2>
+      {/* сюда поступает содержание формы */}
+      <FormContent
+        btnText={props.btnText}
+        email={props.email}
+        pwd={props.pwd}
+        valid={props.valid}
+        errorSpans={props.errorSpans}
+        onEmailChange={handleEmailChange}
+        onPwdChange={handlePwdChange}
+        onValidChange={handleValidChange}
+        onErrorSpansChange={handleErrorSpansChange}
+      />
 
-        {/* сюда поступает содержание формы */}
-        <FormContent
-          btnText={props.btnText}
-          email={props.email}
-          pwd={props.pwd}
-          valid={props.valid}
-          errorSpans={props.errorSpans}
-          onEmailChange={handleEmailChange}
-          onPwdChange={handlePwdChange}
-          onValidChange={handleValidChange}
-          onErrorSpansChange={handleErrorSpansChange}
-        />
+      <div className="form__caption">
+        <p className="form__text"></p>
+        <p className="form__link"></p>
+      </div>
 
-        <div className="form__caption">
-          <p className="form__text"></p>
-          <p className="form__link"></p>
-        </div>
-
-      </form>
-
-    </>
+    </form>
   );
-
 };
 
 export default Login;

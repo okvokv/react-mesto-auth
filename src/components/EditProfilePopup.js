@@ -39,34 +39,41 @@ function ProfileEditPopup(props) {
 			onSubmit={handleSubmit}
 		>
 			{/* == ядро с формой редактирования профиля ====================*/}
-			<input
-				className={`form__input form__input_type_name ${errorSpans.nameError && 'form__input_type_error'}`}
-				type="text"
-				placeholder="Имя"
-				name="name"
-				minLength="2"
-				maxLength="50"
-				value={name}
-				onChange={handleChangeValue}
-				autoFocus
-				required
-			/>
+			<div className="form__input-group">
+				<input
+					className={`form__input form__input_type_name ${errorSpans.nameError && 'form__input_type_error'}`}
+					type="text"
+					placeholder="Имя"
+					name="name"
+					minLength="2"
+					maxLength="50"
+					value={name}
+					onChange={handleChangeValue}
+					autoComplete="on"
+					autoFocus
+					required
+				/>
+			</div>
 
 			<span className="form__error-message" id="name-error">{errorSpans.nameError}</span>
 
-			<input
-				className={`form__input form__input_type_description ${errorSpans.descriptionError && 'form__input_type_error'}`}
-				type="text"
-				placeholder="О себе"
-				name="description"
-				minLength="2"
-				maxLength="200"
-				value={description}
-				onChange={handleChangeValue}
-				required
-			/>
+			<div className="form__input-group">
+				<input
+					className={`form__input form__input_type_description ${errorSpans.descriptionError && 'form__input_type_error'}`}
+					type="text"
+					placeholder="О себе"
+					name="description"
+					minLength="2"
+					maxLength="200"
+					value={description}
+					onChange={handleChangeValue}
+					autoComplete="on"
+					required
+				/>
+			</div>
 
 			<span className="form__error-message" id="description-error">{errorSpans.descriptionError}</span>
+			
 		</PopupWithForm>
 	);
 };

@@ -13,8 +13,8 @@ import Footer from './Footer.js';
 import AvatarEditPopup from './EditAvatarPopup.js'
 import ProfileEditPopup from './EditProfilePopup.js'
 import CardAddPopup from './AddPlacePopup.js';
-import PopupWithConfirmation from './ConfirmationPopup.js';
-import ImagePopup from './ImagePopup.js';
+import ConfirmationPopup from './ConfirmationPopup.js';
+import PopupWithImage from './PopupWithImage.js';
 import InfoTooltip from './InfoTooltip.js';
 
 //гибридный элемент всего проекта
@@ -368,7 +368,7 @@ function App() {
         />
 
         {/*Всплывающее окно с формой подтверждения удаления ========*/}
-        <PopupWithConfirmation
+        <ConfirmationPopup
           btnText={submitBtnText}
           onChangeBtnText={changeSubmitBtnText}
           clickedImage={clickedImage}
@@ -378,7 +378,7 @@ function App() {
         />
 
         {/*Всплывающее окно с картинкой ============================= */}
-        <ImagePopup
+        <PopupWithImage
           selectedCard={clickedImage}
           opened={imagePopupOpened}
           onClose={closeAllPopups}

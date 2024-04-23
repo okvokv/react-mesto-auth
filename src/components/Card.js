@@ -41,7 +41,7 @@ function Card(props) {
 
 			<div className="element__caption">
 				
-				<h2 className="element__text">{props.cardData.name}</h2>
+				<h2 className="element__title">{props.cardData.name}</h2>
 				<div className="element__group">
 					<button
 						className={`element__icon-button ${liked && 'element__icon-button_active'}`} type="button"

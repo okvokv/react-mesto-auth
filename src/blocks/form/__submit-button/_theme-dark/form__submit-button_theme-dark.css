@@ -1,5 +1,6 @@
 .form__submit-button_theme-dark {
 	margin-top: auto;
+	width: 92%;
 	border-radius: 10px;
 	color: #000000;
 	background-color: rgba(0, 149, 255, 1);
@@ -12,7 +13,6 @@
 
 @media screen and (max-width: 619px) {
 	.form__submit-button_theme-dark {
-		width: 260px;
 		font-size: 16px;
 	}
 }

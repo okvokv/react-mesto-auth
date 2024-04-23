@@ -1,8 +1,25 @@
 .popup__image {
 	margin: 0;
-	max-width: 75vw;
-	max-height: 75vh;
+	max-width: 80vw;
+	max-height: 80vh;
+	object-position: top;
 	object-fit: contain;
 	border: 4px double rgba(110, 109, 109, 0.575);
-	cursor: zoom-out;
+	padding: .5px;
+	box-sizing: border-box;
 }
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  popup__image {
+		max-height: 75vh;
+    /*width: px;
+    height: px;*/
+  }     
+}
+
+/*@media(orientation: portrait) {
+  popup__image {
+    width: px;
+    height: px;
+  }     
+}*/

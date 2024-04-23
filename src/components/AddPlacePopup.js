@@ -9,7 +9,7 @@ function CardAddPopup(props) {
 	const { valid, values, errorSpans, handleChangeValue, resetForm } = useFormValidation({ cardName: '', cardLink: '' }, false, {});
 
 	const { cardName, cardLink } = values;
-	
+
 
 	//промежуточная функция отправки данных карточки
 	function handleSubmit(event) {
@@ -22,7 +22,7 @@ function CardAddPopup(props) {
 	useEffect(() => {
 		resetForm();
 	}, [props.reset])
-	
+
 	return (
 		<PopupWithForm
 			type='card'
@@ -34,19 +34,24 @@ function CardAddPopup(props) {
 			onSubmit={handleSubmit}
 		>
 			{/* == ядро с формой добавления контента ===============================*/}
-			<input
-				className={`form__input form__input_type_cardname ${errorSpans.cardNameError && 'form__input_type_error'}`}
-				type="text"
-				placeholder="Название"
-				name="cardName"
-				minLength="2"
-				maxLength="30"
-				value={cardName}
-				onChange={handleChangeValue}
-				autoFocus
-				required
-			/>
-			<span className="form__error-message" id="cardName-error">{errorSpans.cardNameError}</span>
+			<div className="form__input-group">
+				<input
+					className={`form__input form__input_type_cardname ${errorSpans.cardNameError && 'form__input_type_error'}`}
+					type="text"
+					placeholder="Название"
+					name="cardName"
+					minLength="2"
+					maxLength="30"
+					value={cardName}
+					onChange={handleChangeValue}
+					autoComplete="on"
+					autoFocus
+					required
+				/>
+				</div>
+				<span className="form__error-message" id="cardName-error">{errorSpans.cardNameError}</span>
+			
+			<div className="form__input-group">
 			<input
 				className={`form__input form__input_type_cardlink ${errorSpans.cardLinkError && 'form__input_type_error'}`}
 				type="url"
@@ -54,9 +59,12 @@ function CardAddPopup(props) {
 				name="cardLink"
 				value={cardLink}
 				onChange={handleChangeValue}
+				autoComplete="on"
 				required
 			/>
+		</div>
 			<span className="form__error-message" id="cardLink-error">{errorSpans.cardLinkError}</span>
+		
 		</PopupWithForm>
 	);
 };

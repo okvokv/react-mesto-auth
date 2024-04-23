@@ -1,15 +1,24 @@
+.form__input-group {
+  position: relative;
+	width: 81%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .form__input {
 	margin: 0;
 	margin-top: 22px;
 	padding: 0;
-	width: 358px;
+	width: 100%;
 	min-height: 27px;
-	border: none;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-	box-sizing: border-box;
 	font-style: normal;
 	font-weight: 400;
 	font-size: 14px;
+	background-color: inherit;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
 	transition: .5s;
 }
 
@@ -26,6 +35,5 @@
 @media screen and (max-width: 619px) {
 	.form__input {
 		margin-top: 32px;
-		width: 238px;
 	}
 }

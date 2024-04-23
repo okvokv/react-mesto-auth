@@ -1,6 +1,5 @@
 .form__theme-dark {
-	margin: auto;
-	padding-bottom: 0;
+	padding: 0;
 	height: calc(100dvh - 264px);
 	min-height: fit-content;
 	color: #FFFFFF;
@@ -13,14 +12,9 @@
 	}
 }
 
-@media screen and (max-width: 620px) {
-	.form__theme-dark {
-		height: calc(100dvh - 181px);
-	}
-}
-
 @media screen and (max-width: 619px) {
 	.form__theme-dark {
+		height: calc(100dvh - 181px);
 		width: 304px;
 	}
 }

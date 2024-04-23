@@ -32,33 +32,29 @@ function Register(props) {
 
   return (
     //секция с формой регистрации ======================================== 
-    <>
+    <form className="form form__theme-dark" name="regForm" onSubmit={handleSubmit} noValidate>
+      <h2 className="form__title form__title_theme-dark">Регистрация</h2>
 
-      <form className="form form__theme-dark" name="regForm" onSubmit={handleSubmit} noValidate>
-        <h2 className="form__title form__title_theme-dark">Регистрация</h2>
+      {/* сюда поступает содержание форма */}
+      <FormContent
+        btnText={props.btnText}
+        email={props.email}
+        pwd={props.pwd}
+        valid={props.valid}
+        errorSpans={props.errorSpans}
+        onEmailChange={handleEmailChange}
+        onPwdChange={handlePwdChange}
+        onValidChange={handleValidChange}
+        onErrorSpansChange={handleErrorSpansChange}
+      />
 
-        {/* сюда поступает содержание форма */}
-        <FormContent
-          btnText={props.btnText}
-          email={props.email}
-          pwd={props.pwd}
-          valid={props.valid}
-          errorSpans={props.errorSpans}
-          onEmailChange={handleEmailChange}
-          onPwdChange={handlePwdChange}
-          onValidChange={handleValidChange}
-          onErrorSpansChange={handleErrorSpansChange}
-        />
+      <div className="form__caption">
+        <p className="form__text">Уже зарегистированы ?</p>
+        <p className="form__link" onClick={handleClick}>&nbsp; Войти</p>
+      </div>
 
-        <div className="form__caption">
-          <p className="form__text" >Уже зарегистированы ?</p>
-          <p className="form__link" onClick={handleClick}>&nbsp; Войти</p>
-        </div>
-
-      </form>
-    </>
+    </form>
   );
-
 };
 
 export default Register;

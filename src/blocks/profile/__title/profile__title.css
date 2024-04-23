@@ -1,12 +1,12 @@
 .profile__title {
 	margin: 0;
-	width: 294px;
+	max-width: calc(436px - 24px - 10px);
 	font-style: normal;
 	font-weight: 500;
 	font-size: 42px;
-	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .profile__edit-button:hover {
@@ -15,6 +15,7 @@
 
 @media screen and (max-width: 918px) {
 	.profile__title {
+		max-width: calc(282px - 18px - 10px);
 		font-size: 34px;
 	}
 }

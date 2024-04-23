@@ -1,0 +1,5 @@
+.popup__container_zoomed {
+	/*увеличение при появлении*/
+	scale: 1;
+	transition: .35s;
+}

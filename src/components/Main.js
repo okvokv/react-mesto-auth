@@ -1,7 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import Header from './Header.js';
-import Card from './Element.js';
+import Card from './Card.js';
 
 //гибридный элемент 
 function Main(props) {
@@ -36,9 +35,10 @@ function Main(props) {
 								onClick={props.onProfileBtnClick}>
 							</button>
 						</div>
-
 						<p className="profile__subtitle">{currentUserData.about}</p>
+						
 						<p className="profile__id" hidden>{currentUserData._id}</p>
+
 					</div>
 
 					<button

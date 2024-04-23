@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useFormValidation from '../hooks/FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
 
@@ -8,7 +8,7 @@ function AvatarEditPopup(props) {
 	const { valid, errorSpans, handleChangeValue, resetForm } = useFormValidation({ avatarlink: '' }, false, {})
 
 	//задание рефа
-	const avatarLink = React.useRef('');
+	const avatarLink = useRef(null);
 
 	//промежуточная функция отправки ссылки
 	function handleSubmit(event) {
@@ -21,7 +21,7 @@ function AvatarEditPopup(props) {
 	useEffect(() => {
 		avatarLink.current.value = '';
 		resetForm();
-}, [props.reset])
+	}, [props.reset])
 
 	return (
 		<PopupWithForm
@@ -34,17 +34,22 @@ function AvatarEditPopup(props) {
 			onSubmit={handleSubmit}
 		>
 			{/* == ядро с формой смены аватара ===================================*/}
-			<input
-				className={`form__input form__input_type_avatarlink ${errorSpans.avatarLinkError &&'form__input_type_error'}`}
-				type="url"
-				placeholder="Ссылка на аватар"
-				name="avatarLink"
-				onChange={handleChangeValue}
-				ref={avatarLink}
-				autoFocus
-				required
-			/>
+			<div className="form__input-group">
+				<input
+					className={`form__input form__input_type_avatarlink ${errorSpans.avatarLinkError && 'form__input_type_error'}`}
+					type="url"
+					placeholder="Ссылка на аватар"
+					name="avatarLink"
+					onChange={handleChangeValue}
+					ref={avatarLink}
+					autoComplete="on"
+					autoFocus
+					required
+				/>
+			</div>
+			
 			<span className="form__error-message" id="avatarLink-error">{errorSpans.avatarLinkError}</span>
+
 		</PopupWithForm>
 	);
 };
