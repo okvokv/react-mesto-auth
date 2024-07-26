@@ -9,5 +9,8 @@
 	background-color: var(--bgcol);
 	color: white;
 	font-family: 'Inter', Arial, sans-serif;
+	scroll-behavior: smooth;
+	scrollbar-gutter: stable;
+	scrollbar-width: thin;
 	cursor: default;
 }
